@@ -11,6 +11,7 @@ import {
   StTitle,
   StWrapper,
 } from "../style/Login";
+import GithubBtn from "../components/GithubBtn";
 
 function Login() {
   const navigate = useNavigate();
@@ -75,8 +76,10 @@ function Login() {
       </StForm>
       {error === "" ? null : <StError>{error}</StError>}
       <StSwitcher>
-        계정이 없으신가요? <Link to="/create-account">Create one &rarr;</Link>
+        Don't have an account?{" "}
+        <Link to="/create-account">Create one &rarr;</Link>
       </StSwitcher>
+      <GithubBtn />
     </StWrapper>
   );
 }

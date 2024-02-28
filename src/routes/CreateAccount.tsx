@@ -100,7 +100,7 @@ function CreateAccount() {
       </StForm>
       {error === "" ? null : <StError>{error}</StError>}
       <StSwitcher>
-        이미 계정이 있으신가요? <Link to="/login">Log in &rarr;</Link>
+        Already have an account? <Link to="/login">Log in &rarr;</Link>
       </StSwitcher>
     </StWrapper>
   );
