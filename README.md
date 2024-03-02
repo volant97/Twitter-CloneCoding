@@ -1,4 +1,4 @@
-# Developer Note
+# Developer Notes
 
 ### 2024.02.27
 
@@ -32,3 +32,10 @@
 - tweet textarea
 - label, input 관계
 - accept (파일 확장자 유효성 검사 필요)
+
+### 2024.03.02
+
+#### 4.2
+
+- firebase DB, Storage 세팅
+- DB 업로드 로직
