@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { auth, db } from "../firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { auth, db, storage } from "../firebase";
+import { addDoc, collection, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 function PostTweetForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,18 +28,41 @@ function PostTweetForm() {
 
     try {
       setIsLoading(true);
-      await addDoc(collection(db, "tweets"), {
+
+      const maxImgSize = 1048576;
+      if (file && file?.size > maxImgSize)
+        return alert("이미지 크기는 1MB 이하로 업로드 가능합니다.");
+
+      const doc = await addDoc(collection(db, "tweets"), {
         tweet,
         createdAt: Date.now(),
         username: user.displayName || "Anonymous",
         userId: user.uid,
       });
+
+      if (file) {
+        const locationRef = ref(
+          storage,
+          `tweets/${user.uid}-${user.displayName}/${doc.id}`
+        );
+        const result = await uploadBytes(locationRef, file);
+        const url = await getDownloadURL(result.ref);
+        updateDoc(doc, {
+          photo: url,
+        });
+      }
+
+      alert("업로드 되었습니다.");
+      setTweet("");
+      setFile(null);
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
+
+  console.log(file?.size);
 
   return (
     <StForm onSubmit={onSubmit}>
@@ -48,6 +72,7 @@ function PostTweetForm() {
         placeholder="What is happening?"
         rows={5}
         maxLength={180}
+        required
       />
       <StAttachFileBtn htmlFor="file">
         {file ? "Photo added ✅" : "Add Photo"}

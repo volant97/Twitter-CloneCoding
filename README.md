@@ -39,3 +39,10 @@
 
 - firebase DB, Storage 세팅
 - DB 업로드 로직
+
+### 2024.03.03
+
+#### 4.3
+
+- tweet 업로드 : firebase Storage 이미지 업로드 및 DB 데이터에 연결
+- file 유효성 검사 : 용량 1MB 제한
