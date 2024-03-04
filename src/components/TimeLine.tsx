@@ -1,4 +1,10 @@
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { db } from "../firebase";
@@ -21,7 +27,9 @@ function TimeLine() {
       collection(db, "tweets"),
       orderBy("createdAt", "desc")
     );
-    const snapshot = await getDocs(tweetsQuery);
+
+    // Query
+    /*  const snapshot = await getDocs(tweetsQuery);
     const tweets = snapshot.docs.map((doc) => {
       const { createdAt, photo, tweet, userId, username } = doc.data();
       return {
@@ -32,8 +40,23 @@ function TimeLine() {
         userId,
         username,
       };
+    }); */
+
+    // Realtime
+    onSnapshot(tweetsQuery, (snapshot) => {
+      const tweets = snapshot.docs.map((doc) => {
+        const { createdAt, photo, tweet, userId, username } = doc.data();
+        return {
+          id: doc.id,
+          createdAt,
+          photo,
+          tweet,
+          userId,
+          username,
+        };
+      });
+      setTweets(tweets);
     });
-    setTweets(tweets);
   };
 
   useEffect(() => {
@@ -51,4 +74,8 @@ function TimeLine() {
 
 export default TimeLine;
 
-const StWrapper = styled.div``;
+const StWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+`;

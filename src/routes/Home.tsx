@@ -19,5 +19,7 @@ const Stwrapper = styled.div`
   overflow-y: scroll;
   grid-template-rows: 1fr 5fr;
 
-  border: 2px solid pink;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome 및 Safari에서 스크롤바 숨김 */
+  }
 `;

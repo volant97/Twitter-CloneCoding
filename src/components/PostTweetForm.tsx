@@ -62,8 +62,6 @@ function PostTweetForm() {
     }
   };
 
-  console.log(file?.size);
-
   return (
     <StForm onSubmit={onSubmit}>
       <StTextArea
