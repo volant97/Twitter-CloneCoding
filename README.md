@@ -60,3 +60,5 @@
 
 - tweet에 Realtime 적용
 - 크롬, 사파리에서 스크롤바 숨기기
+- useEffect clean-up 함수로 Realtime 구독해제
+- query 페이지네이션으로 최초로 불러오는 데이터 제한 (페이지 로직 필요)
