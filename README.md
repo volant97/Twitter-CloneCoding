@@ -46,3 +46,9 @@
 
 - tweet 업로드 : firebase Storage 이미지 업로드 및 DB 데이터에 연결
 - file 유효성 검사 : 용량 1MB 제한
+
+### 2024.03.04
+
+#### 4.4
+
+- query 추출
