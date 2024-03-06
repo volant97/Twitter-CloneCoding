@@ -1,13 +1,38 @@
 import React from "react";
 import { ITweet } from "./TimeLine";
 import styled from "styled-components";
+import { auth, db, storage } from "../firebase";
+import { deleteDoc, doc } from "firebase/firestore";
+import { deleteObject, ref } from "firebase/storage";
 
-function Tweet({ username, photo, tweet }: ITweet) {
+function Tweet({ username, photo, tweet, userId, id }: ITweet) {
+  const currentUserId = auth.currentUser?.uid;
+
+  const onDelete = async () => {
+    const ok = confirm("삭제하시겠습니까?");
+
+    if (!ok || currentUserId !== userId) return;
+
+    try {
+      await deleteDoc(doc(db, "tweets", id));
+
+      if (photo) {
+        const photoRef = ref(storage, `tweets/${currentUserId}/${id}`);
+        await deleteObject(photoRef);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Stwrapper>
       <StColumn>
         <Stusername>{username}</Stusername>
         <StPayload>{tweet}</StPayload>
+        {currentUserId === userId ? (
+          <StDeleteBtn onClick={onDelete}>Delete</StDeleteBtn>
+        ) : null}
       </StColumn>
       <StColumn>{photo ? <StPhoto src={photo} /> : null}</StColumn>
     </Stwrapper>
@@ -34,6 +59,18 @@ const Stusername = styled.span`
 const StPayload = styled.p`
   margin: 10px 0;
   font-size: 18px;
+`;
+
+const StDeleteBtn = styled.button`
+  background-color: tomato;
+  color: white;
+  font-weight: 600;
+  border: 0;
+  font-size: 12px;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
 `;
 
 const StPhoto = styled.img`
