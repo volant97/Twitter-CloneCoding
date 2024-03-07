@@ -1,14 +1,25 @@
 /* eslint-disable no-extra-boolean-cast */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { auth, storage } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import UserIcon from "../style/icon/UserIcon";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
+import {
+  collection,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+import { ITweet } from "../components/TimeLine";
+import Tweet from "../components/Tweet";
 
 function Profile() {
   const currentUser = auth.currentUser;
   const [avatar, setAvatar] = useState(currentUser?.photoURL);
+  const [tweets, setTweets] = useState<ITweet[]>([]);
 
   const onAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
@@ -25,6 +36,32 @@ function Profile() {
     }
   };
 
+  const fetchTweets = async () => {
+    const tweetQuery = query(
+      collection(db, "tweets"),
+      where("userId", "==", currentUser?.uid),
+      orderBy("createdAt", "desc"),
+      limit(25)
+    );
+    const snapshot = await getDocs(tweetQuery);
+    const tweets = snapshot.docs.map((doc) => {
+      const { createdAt, photo, tweet, userId, username } = doc.data();
+      return {
+        id: doc.id,
+        createdAt,
+        photo,
+        tweet,
+        userId,
+        username,
+      };
+    });
+    setTweets(tweets);
+  };
+
+  useEffect(() => {
+    fetchTweets();
+  }, []);
+
   return (
     <StWrapper>
       <StAvatarUpload htmlFor="avatar">
@@ -37,6 +74,11 @@ function Profile() {
         onChange={onAvatarChange}
       />
       <StName>{currentUser?.displayName ?? "Anonymous"}</StName>
+      <StTweets>
+        {tweets.map((tweet) => (
+          <Tweet key={tweet.id} {...tweet} />
+        ))}
+      </StTweets>
     </StWrapper>
   );
 }
@@ -82,4 +124,11 @@ const StAvatarInput = styled.input`
 
 const StName = styled.span`
   font-size: 22px;
+`;
+
+const StTweets = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
 `;
