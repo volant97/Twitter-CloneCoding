@@ -70,3 +70,11 @@
 - tweet 삭제 버튼
 - tweet delete button 접근 조건 추가
 - 첨부된 이미지가 있다면 같이 삭제
+
+### 2024.03.07
+
+#### 5.0
+
+- Profile
+- User Avatar
+- 유저 이름, 아바타 표시
