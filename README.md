@@ -77,4 +77,6 @@
 
 - Profile
 - User Avatar
+- storage, updateProfile photoURL 저장
 - 유저 이름, 아바타 표시
+- transition CSS
