@@ -88,3 +88,11 @@
 - User's Timeline
 - Query Filtering
 - 해당 유저 tweets 표시
+
+### 2024.03.09
+
+#### 5.2
+
+- User Name Change
+- 프로필(name) 변경 로직 구현
+- transition CSS
