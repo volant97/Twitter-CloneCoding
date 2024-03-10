@@ -1,4 +1,3 @@
-import React from "react";
 import { ITweet } from "./TimeLine";
 import styled from "styled-components";
 import { auth, db, storage } from "../firebase";

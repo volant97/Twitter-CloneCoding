@@ -96,3 +96,9 @@
 - User Name Change
 - 프로필(name) 변경 로직 구현
 - transition CSS
+
+### 2024.03.10
+
+#### 6.0
+
+- Firebase Deploy
