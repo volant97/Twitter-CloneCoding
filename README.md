@@ -115,4 +115,4 @@ https://twitter-clonecoding-65e79.web.app/
   - read
   - write : create, update, delete 포함
 - Database & Storage
-- 자세한 코드는 Firebase Security Rule.txt에서 확인
+- 자세한 코드는 Firebase Security Rules.txt에서 확인
