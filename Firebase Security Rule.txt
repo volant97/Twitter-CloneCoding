@@ -1,0 +1,28 @@
+Firebase Security Rules
+
+  - read
+  - write : create, update, delete 포함
+
+
+0. Previous Code
+
+  allow read, write: if request.time < timestamp.date(2024, 4, 1);
+
+
+1. Database
+
+  match /tweets/{doc} {
+    allow read, create: if request.auth != null
+    allow delete, update: if request.auth.uid == resource.data.userId
+  }
+
+
+2. Storage
+
+  match /{allPaths=**} {
+    allow read: if request.auth != null
+    allow write: if request.auth != null && request.resource.size < 2 * 1024 * 1024
+  }
+
+  추가적으로 업로드하는 파일 타입을 지정하려면
+  && resource.contentType == "image/png"

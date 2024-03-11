@@ -1,3 +1,7 @@
+# Distribution
+
+https://twitter-clonecoding-65e79.web.app/
+
 # Dev Notes
 
 ### 2024.02.27
@@ -102,3 +106,13 @@
 #### 6.0
 
 - Firebase Deploy
+
+### 2024.03.11
+
+#### 6.1
+
+- Firebase Security Rules
+  - read
+  - write : create, update, delete 포함
+- Database & Storage
+- 자세한 코드는 Firebase Security Rule.txt에서 확인
