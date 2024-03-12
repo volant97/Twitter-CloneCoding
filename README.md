@@ -116,3 +116,11 @@ https://twitter-clonecoding-65e79.web.app/
   - write : create, update, delete 포함
 - Database & Storage
 - 자세한 코드는 Firebase Security Rules.txt에서 확인
+
+### 2024.03.12
+
+#### 6.2
+
+- API Key Security
+- 배포된 주소만 추가하여 허용
+- 자세한 내용은 API Key Security.txt에서 확인

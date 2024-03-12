@@ -1,0 +1,17 @@
+console.cloud.google.com/apis/credentials
+
+Browser key (auto created by Firebase)
+
+애플리케이션 제한사항 설정
+- 웹사이트
+- 배포된 주소만 추가하여 허용
+
+
+
+Test
+- localhost에서는 작동 불가
+
+
+
+Dev
+- 개발중이라면 localhost 도메인 추가해놓기
