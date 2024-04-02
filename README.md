@@ -1,4 +1,4 @@
-# Distribution
+# Deploy
 
 https://twitter-clonecoding-65e79.web.app/
 
